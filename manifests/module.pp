@@ -111,6 +111,9 @@ define selinux::module(
       -> File<| tag == "selinux-module-build-${name}" |>
     }
     absent: {
+      exec { "${name}-buildmod":
+        command => 'true', # lint:ignore:quoted_booleans
+      }
       exec { "${name}-remove":
         command => "semodule -r ${name}.pp > /dev/null 2>&1",
       }
